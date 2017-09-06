@@ -1,6 +1,6 @@
 {
-  "name": "Miner Game",
-  "description": "A Simple game using Crafty.js for CMSC 126",
+  "name": "Time Sharing Simulator",
+  "description": "Lab Exercise 1 for CMSC 125",
   "repository": "https://github.com/arvsxz05/Time-Sharing-Simulator.git",
   "keywords": [
     "Time-Sharing",
