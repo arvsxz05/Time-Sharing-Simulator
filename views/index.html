@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Time Sharing System Simulator</title>
+	<meta name="viewport"	content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet"	type="text/css"			href="/static/css/bootstrap.min.css">
+	<link rel="stylesheet"	type="text/css"			href="/static/css/bootstrap-grid.min.css">
+	<link rel="stylesheet"	type="text/css"			href="/static/css/bootstrap-reboot.min.css">
+	<script					type="text/javascript"	src="/static/js/jquery.js"></script>
+	<script					type="text/javascript"	src="/static/js/main.js"></script>
+	<script					src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
+	<script					type="text/javascript"	src="/static/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<!-- NAVIGATION -->
+	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<a class="navbar-brand" href="#">TIME SHARING SYSTEM</a>
+
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="/">Refresh <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#" id="instructions">Instructions </a>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<!-- END OF NAVIGATION -->
+	<div class="container" id="repeatable">
+		<center><h1 class="bd-title"></h1></center>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	startSystem();
+	console.log(resources);
+	console.log(users);
+	$(document).ready(function(){
+		$('#instructions').click(function() {
+			window.open('/static/Lab_Exercise_1.pdf');
+		});
+	    setInterval(function() {
+	    	$('.for-hover').popover('hide');
+			$("#repeatable").empty();
+			$("#repeatable").append('<center><h1 class="bd-title"></h1></center>');
+			for (var i = 0; i < resources.length; i++) {
+				var queue_buttons = "";
+				for(var j=0; j < resources[i].queue.length; j++) {
+					queue_buttons += '<button type="button" class="btn btn-primary for-hover" style="background-color: ' + resources[i].queue[j].color + '; border-color: ' + resources[i].queue[j].color + ';" rel="popover" title="Time Required" data-content="' + resources[i].queue[j].time + '">User ' + resources[i].queue[j].index + '</button>'
+				}
+				queue_buttons = '<div class="btn-group btn-group-justified" role="group" aria-label="Resource ' + (i+1) + '\'s Queue" style="white-space: wrap;">' + queue_buttons + '</div>';
+				if (resources[i].status == "Used") {
+					$("#repeatable").append('<div class="row align-items-center" >'
+						+ '<div class="col-sm-3 feature">'
+						+ 	'<div class="card card-inverse text-center" style="background-color: ' + resources[i].user.color + '; border-color: ' + resources[i].user.color + ';">'
+						+ 		'<div class="card-block">'
+						+ 			'<h6 class="card-title">Resource ' + (i + 1) + '</h6>'
+						+ 			'<div class="row">'
+						+ 				'<div class="col-md-6"><p class="card-text">User:</p></div>'
+						+ 				'<div class="col-md-6"><p class="card-text">' + resources[i].user.index + '</p></div>'
+						+ 			'</div>'
+						+ 			'<div class="row">'
+						+ 				'<div class="col-md-6"><p class="card-text">Time Left:</p></div>'
+						+ 				'<div class="col-md-6"><p class="card-text">' + resources[i].user.time + '</p></div>'
+						+ 			'</div>'
+						+ 		'</div>'
+						+ 		'<div class="card-footer text-muted">'
+						+ 			resources[i].status
+						+ 		'</div>'
+						+ 	'</div>'
+						+ '</div>'
+						+ '<div class="col-sm-9 feature">'
+						+ 	queue_buttons
+						+ '</div>');
+					$('.for-hover').popover({
+						title: $(this).text,
+						content: "Time Required: " + $(this).attr('data-content'),
+						trigger: 'hover'
+					});
+				} else {
+					$("#repeatable").append('<div class="row align-items-center" >'
+						+ '<div class="col-sm-3 feature">'
+						+ 	'<div class="card text-center">'
+						+ 		'<div class="card-block">'
+						+ 			'<h6 class="card-title">Resource ' + (i + 1) + '</h6>'
+						+ 			'<div class="row">'
+						+ 				'<div class="col-md-6"><p class="card-text">User:</p></div>'
+						+ 				'<div class="col-md-6"><p class="card-text">none</p></div>'
+						+ 			'</div>'
+						+ 			'<div class="row">'
+						+ 				'<div class="col-md-6"><p class="card-text">Time Left:</p></div>'
+						+ 				'<div class="col-md-6"><p class="card-text">none</p></div>'
+						+ 			'</div>'
+						+ 		'</div>'
+						+ 		'<div class="card-footer text-muted">'
+						+ 			resources[i].status
+						+ 		'</div>'
+						+ 	'</div>'
+						+ '</div>'
+						+ '<div class="col-sm-9 feature">'
+						+ 	queue_buttons
+						+ '</div>');
+				}
+			}
+		}, 1000);
+	});
+</script>
+</html>
