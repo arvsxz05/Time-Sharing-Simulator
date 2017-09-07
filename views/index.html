@@ -10,17 +10,23 @@
 	<script					type="text/javascript"	src="/static/js/main.js"></script>
 	<script					src="https://npmcdn.com/tether@1.2.4/dist/js/tether.min.js"></script>
 	<script					type="text/javascript"	src="/static/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		body {
+			padding-top: 70px;
+			padding-bottom: 20px;
+		}
+	</style>
 </head>
 <body>
 	<!-- NAVIGATION -->
-	<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+	<nav class="navbar navbar-toggleable-md fixed-top navbar-light navbar-inverse bg-primary">
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
 		<a class="navbar-brand" href="#">TIME SHARING SYSTEM</a>
 
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
-			<ul class="navbar-nav mr-auto">
+			<ul class="navbar-nav ml-auto">
 				<li class="nav-item active">
 					<a class="nav-link" href="/">Refresh <span class="sr-only">(current)</span></a>
 				</li>
@@ -31,19 +37,42 @@
 		</div>
 	</nav>
 	<!-- END OF NAVIGATION -->
-	<div class="container" id="repeatable">
-		<center><h1 class="bd-title"></h1></center>
+
+	<div class="container">
+		<center><h1 class="bd-title">Multiprogramming with Time-Sharing Systems</h1></center>
+		<div class="row align-items-center" style="padding-top: 20px;">
+			<div class="col-sm-6 feature">
+				<div class="form-group row">
+					<label for="text-user" class="col-5 col-form-label"><b>Number of User(s)</b></label>
+					<div class="col-7">
+						<input class="form-control" type="text" id="text-user" disabled>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 feature">
+				<div class="form-group row">
+					<label for="text-resource" class="col-5 col-form-label"><b>Number of Resource(s)</b></label>
+					<div class="col-7">
+						<input class="form-control" type="text" id="text-resource" disabled>
+					</div>
+				</div>
+			</div>
 		</div>
+		<div id="repeatable"></div>
 	</div>
 </body>
 <script type="text/javascript">
-	startSystem();
-	console.log(resources);
-	console.log(users);
 	$(document).ready(function(){
+		startSystem();
+		console.log(resources);
+		console.log(users);
 		$('#instructions').click(function() {
 			window.open('/static/Lab_Exercise_1.pdf');
 		});
+
+		$("#text-resource").val(no_resource);
+		$("#text-user").val(no_user);
+
 	    setInterval(function() {
 	    	$('.for-hover').popover('hide');
 			$("#repeatable").empty();
@@ -76,7 +105,7 @@
 						+ '</div>'
 						+ '<div class="col-sm-9 feature">'
 						+ 	queue_buttons
-						+ '</div>');
+						+ '</div></div>');
 					$('.for-hover').popover({
 						title: $(this).text,
 						content: "Time Required: " + $(this).attr('data-content'),
@@ -104,7 +133,7 @@
 						+ '</div>'
 						+ '<div class="col-sm-9 feature">'
 						+ 	queue_buttons
-						+ '</div>');
+						+ '</div></div>');
 				}
 			}
 		}, 1000);
