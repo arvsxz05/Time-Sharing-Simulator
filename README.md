@@ -2,4 +2,6 @@
 
 To simulate Time-Sharing Systems.
 
+Access it [here](https://time-sharing-simulator.herokuapp.com/)
+
 Created by: [Arvin Arbuis](https://github.com/arvsxz05)
